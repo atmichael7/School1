@@ -1,0 +1,11 @@
+s = "<name:Tom><age:33><job:Accounting>"
+
+s1 = s.strip('<').strip('>')
+
+l = s1.split('><')
+
+ans = []
+for i in l:
+    ans.append(i.split(':')[1])
+
+print(ans)
