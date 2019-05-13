@@ -1,0 +1,19 @@
+
+def reverse_pali(s):
+    return s[::-1]
+
+
+def is_pali(s):
+    reverse = reverse_pali(s)
+
+    if (s == reverse):
+        return True
+    return False
+
+s = 'racecar'
+ans = is_pali(s)
+
+if ans == True:
+    print('True')
+else:
+    print('False')
