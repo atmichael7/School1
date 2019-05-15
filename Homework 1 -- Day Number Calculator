@@ -1,0 +1,118 @@
+# coding: utf-8
+# cse201 spring19
+# homework 1, by YZ
+# Write a program that accepts a date as month/ day /year,
+# and then calculates the corresponding day number.
+# student completer :Michael Barrett
+# student ID : 006384049
+
+
+# 1. complete function parse_date
+def parse_date(date):
+    # input : MM/DD/YYYY string
+    # output: integers of month, day, and year
+    try:
+        str_lst = date.split('/')  # split string by "/" and turn it into list
+        int_lst = []
+        for string in str_lst:
+            int_lst.append(int(string))  # try convert each string into int and append to int_lst
+        # YOU CODE HERE
+        month = int_lst[0]
+        day = int_lst[1]
+        year = int_lst[2]
+        # END OF CODE
+        return month, day, year
+    except Exception as e:
+        print(e)
+        print('for parse_date()')
+        return None  # return nothing
+
+# 2. complete function is_leap_year
+
+
+def is_leap_year(year):
+    # input : int: year
+    # output : True if year is leap year , else False
+    # YOUR CODE HERE
+    if year%4 == 0 and year%400 !=0:
+        return True
+
+    return False
+    # END OF CODE
+
+# 3. valid_date is provided, do not modify. Read carefully.
+
+
+def valid_date(month, day, year):
+    # input : ints: month,day,year
+    # output : True if the combination is valid , else False
+
+    # month, day, and year must be limited
+    if 1 <= month <= 12 and 1 <= day <= 31 and year >= 0:
+        # create local variable: non leap year look up table : dict
+        # dict or dictionary is a built-in data type in python
+        # it stores key: value pairs inside { }
+        # to get the value of key from a dictionary d
+        # we have syntax : value = d[key]
+        # e.g. look_up[1] returns 31, look_up[2] returns 28 etc.
+        look_up = {1: 31, 2: 28, 3: 31, 4: 30,
+                   5: 31, 6: 30, 7: 31, 8: 31,
+                   9: 30, 10: 31, 11: 30, 12: 31}
+        if is_leap_year(year):
+            look_up[2] += 1  # Feb has 29 days if leap year
+            if day <= look_up[month]:
+                return True
+        else:
+            if day <= look_up[month]:
+                return True
+
+    return False
+
+
+# complete day_num using valid_date and is_leap_year and
+# arithmetic given by the slides or the textbook
+
+def day_num(date):
+    # input: string : MM/DD/YYYY
+    # output: int: day number (1-365(366 if leap year))
+    month, day, year = parse_date(date)
+
+    # YOUR CODE HERE
+    if valid_date(month, date, year) == True:
+        day_num = 31*(month-1)+day
+        if month > 2:
+            day_num = day_num - (4*(month)+ 23//10)
+            if is_leap_year(year) == True
+                day_num += 1
+    # END OF CODE
+    return 'Input date is invalid!'
+
+### DO NOT MODIFY BELOW ###
+# run your program (sanity_check), if your implementation is correct,
+# you will see " All tests passed" printed.
+# you should rename your source code file (.py) by the format:
+# hw1_studentName_studentId.py
+# Once you have done, submit this source code file (.py)
+# along with screenshot of output via blackboard.
+
+
+def sanity_check():
+    ans_lst = [336, 60, 'Input date is invalid!', 59, 59, 60, 61]
+    tests = ['12/2/2018', '3/1/2018', '2/29/2018', '2/28/2018', '2/28/2016',
+             '2/29/2016', '3/1/2016']
+    for i in range(len(ans_lst)):
+
+        print("Running sanity checks")
+        t = day_num(tests[i])
+        ans = ans_lst[i]
+        print("test", i+1, "result:", t)
+        assert(t == ans), "Incorrect Answer. Correct: {}. Yours: {}".format(ans, t)
+
+        print("-" * 40)
+
+    print("All tests passed")
+    print("-" * 40)
+
+
+if __name__ == "__main__":
+    sanity_check()
