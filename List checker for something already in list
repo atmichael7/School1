@@ -1,0 +1,14 @@
+
+bag = []
+
+def check_repeat(s):
+
+    for i in s:
+        if i in bag:
+            return i
+        else:
+            bag.append(i)
+
+s = s = 'abcdefghijklmnopqrstuvwxyz1234567890a'
+ans = check_repeat(s)
+print (ans)
