@@ -1,0 +1,28 @@
+from Graphics import *
+import random
+import time 
+win = GraphWin(title = 'canvas', width = 900, height = 900)
+
+class circ: 
+    
+    def __init__(self, r, c, x, y):
+        self.x = x
+        self.y = y
+        self.center = Point(self.x, self.y)
+        self.radius = r
+        self.color = c
+        self.cir = Circle(self.center, self.radius)
+        
+    def place(self, win):
+        self.cir.draw(win)
+        self.cir.setFill(self.color)
+
+
+p = 0
+while p < 5000:
+    if p < 5000:
+        a = circ(random.randint(10, 40), color_rgb(random.randint(1, 255), random.randint(1, 255), random.randint(1, 255)), random.randint(0, 900), random.randint(0, 900))
+        a.place(win)
+        p = p + 1
+        time.sleep(.1)
+        
